@@ -139,7 +139,7 @@ new Elysia()
         </head>
         <body>
           <main id="ducky" style="max-width: 450px;">
-            {config.message.text && (
+            {config.message && (
               <aside
                 id="message"
                 style={{
@@ -147,7 +147,7 @@ new Elysia()
                   color: "#000",
                 }}
               >
-                {config.message.text}
+                {config.message}
               </aside>
             )}
             <header>

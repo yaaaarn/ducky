@@ -1,8 +1,7 @@
 name: ducky!
 tagline: a minimal and hackable dashboard.
 
-message:
-  text: edit <b>config.yaml</b> and <b>index.tsx</b> to customize the dashboard.
+message: edit <b>config.yaml</b> and <b>index.tsx</b> to customize the dashboard.
 
 vars:
   DOMAIN: 192.168.1.67
