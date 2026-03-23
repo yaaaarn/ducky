@@ -1,0 +1,34 @@
+name: ducky!
+tagline: a minimal and hackable dashboard.
+
+message:
+  text: edit <b>config.yaml</b> and <b>index.tsx</b> to customize the dashboard.
+
+vars:
+  DOMAIN: 192.168.1.67
+
+items:
+  - type: html
+    html: |
+      <h2>search</h2>
+
+  - type: search
+    placeholder: Search using DuckDuckGo!
+    url: http://duckduckgo.com/search
+    name: q
+
+  - type: html
+    html: |
+      <h2>sites</h2>
+
+  - type: category
+    name: quick access
+    emoji: 🔗
+    open: true
+    items:
+      - name: dockge
+        url: http://{DOMAIN}:1000
+      - name: jellyfin
+        url: http://{DOMAIN}:8096
+      - name: copyparty
+        url: https://{DOMAIN}:1002

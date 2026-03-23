@@ -1,0 +1,21 @@
+{
+  "name": "ducky",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@elysiajs/html": "^1.4.0",
+    "elysia": "^1.4.28",
+    "figlet": "^1.11.0",
+    "sass": "^1.98.0"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher"
+  ]
+}
