@@ -8,4 +8,3 @@ services:
       - 6767:3000
     volumes:
       - ./config:/usr/src/app/config
-networks: {}
