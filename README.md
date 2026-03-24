@@ -19,6 +19,7 @@ minimal mode is accessible by putting `?min` at the end of the URL like this: `h
 git clone https://github.com/yaaaarn/ducky && cd ducky
 
 # copy configuration files
+cp docker-compose.example.yaml docker-compose.yaml
 cp -r config.example config
 
 # start the container
