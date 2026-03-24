@@ -44,8 +44,6 @@ new Elysia()
     const config = await loadConfig();
     const styles = await loadStyles();
 
-    console.log(config)
-
     const VARIABLES = config.variables ?? {};
     const ITEMS = (config.items ?? []).map((item: any) => {
       if (item.type === "category") {
@@ -120,3 +118,5 @@ new Elysia()
     );
   })
   .listen(3000);
+
+console.log('ducky is active.')
