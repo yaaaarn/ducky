@@ -1,117 +1,37 @@
 import { Elysia } from "elysia";
 import { html, Html } from "@elysiajs/html";
-import config from "./config.yaml";
 import * as sass from "sass";
+import fs from "fs/promises";
+import z from "zod";
+import { Config } from "./schemas";
+import { renderers } from "./renderers";
 
 //
 // utils
 //
 
-const resolve = (str: string): string => {
-  if (!str) return str;
+const resolve = (VARIABLES: z.infer<typeof Config>['variables'], str: string): string => {
+  if (!str || !VARIABLES) return str;
 
   return str.replace(/\{(\w+)\}/g, (_, varName) => {
-    const value = VARS[varName];
+    const value = VARIABLES[varName];
     if (value === undefined) {
       console.warn(`Variable {${varName}} not found in config.vars`);
       return `{${varName}}`;
     }
-    return resolve(value);
+    return resolve(VARIABLES, value);
   });
 };
 
-//
-// globals
-//
-
-const VARS = config.vars ?? {};
-const ITEMS = (config.items ?? []).map((item: any) => {
-  if (item.type === "category") {
-    return {
-      ...item,
-      items: item.items.map((subItem: any) => ({
-        ...subItem,
-        url: resolve(subItem.url),
-      })),
-    };
-  }
-  return { ...item, url: resolve(item.url) };
-});
-
-// @ts-expect-error
-const { default: rawStyles } = await import("./style.scss", {
-  with: { type: "text" },
-});
-
-const { css: styles } = await sass.compileStringAsync(rawStyles);
-
-//
-// components
-//
-
-const Item = ({ name, url }: { name: string; url: string }) => {
-  const _url = new URL(url);
-  return (
-    <a
-      href={_url.toString()}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="item"
-    >
-      <div>{name}</div>
-      <small>{_url.toString()}</small>
-    </a>
-  );
+const loadStyles = async () => {
+  const raw = await fs.readFile("./config/style.scss", "utf-8");
+  const { css } = await sass.compileStringAsync(raw);
+  return css;
 };
 
-const Category = ({
-  name,
-  emoji,
-  open,
-  items,
-}: {
-  name: string;
-  emoji: string;
-  open: boolean;
-  items: typeof ITEMS;
-}) => (
-  <details open={open}>
-    <summary>
-      {emoji && <span class="emoji">{emoji} </span>}
-      {name}
-    </summary>
-    <ul class="list">
-      {items.map((i: any) => (
-        <li>
-          <Item {...i} />
-        </li>
-      ))}
-    </ul>
-  </details>
-);
-
-const Search = ({
-  placeholder,
-  url,
-  name = "q",
-}: {
-  placeholder: string;
-  url: string;
-  name: string;
-}) => (
-  <form action={url} method="GET" class="search">
-    <input name={name} autofocus placeholder={placeholder} />
-    <input type="submit" value="Search" />
-  </form>
-);
-
-const HTML = ({ html }: { html: string }) => <>{html}</>;
-
-const renderers: Record<string, (item: any) => any> = {
-  default: (item) => <Item {...item} />,
-  category: (item) => <Category {...item} />,
-  search: (item) => <Search {...item} />,
-  html: (item) => <HTML {...item} />,
+const loadConfig = async () => {
+  const file = await fs.readFile("./config/config.yaml", "utf-8");
+  return await Config.parseAsync(Bun.YAML.parse(file));
 };
 
 //
@@ -121,6 +41,25 @@ const renderers: Record<string, (item: any) => any> = {
 new Elysia()
   .use(html())
   .get("/", async ({ query }) => {
+    const config = await loadConfig();
+    const styles = await loadStyles();
+
+    console.log(config)
+
+    const VARIABLES = config.variables ?? {};
+    const ITEMS = (config.items ?? []).map((item: any) => {
+      if (item.type === "category") {
+        return {
+          ...item,
+          items: item.items.map((subItem: any) => ({
+            ...subItem,
+            url: resolve(VARIABLES, subItem.url),
+          })),
+        };
+      }
+      return { ...item, url: resolve(VARIABLES, item.url) };
+    });
+
     return (
       <html lang="en">
         <head>

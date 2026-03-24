@@ -1,0 +1,11 @@
+services:
+  ducky:
+    pull_policy: build
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 6767:3000
+    volumes:
+      - ./config:/usr/src/app/config
+networks: {}

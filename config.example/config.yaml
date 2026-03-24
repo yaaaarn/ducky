@@ -3,7 +3,7 @@ tagline: a minimal and hackable dashboard.
 
 message: edit <b>config.yaml</b> and <b>index.tsx</b> to customize the dashboard.
 
-vars:
+variables:
   DOMAIN: 192.168.1.67
 
 items:
