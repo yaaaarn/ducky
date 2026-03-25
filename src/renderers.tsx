@@ -8,7 +8,6 @@ const Item = ({ name, url }: { name: string; url: string }) => {
     <div>
       <a
         href={_url.toString()}
-        target="_blank"
         rel="noopener noreferrer"
         class="item"
       >
