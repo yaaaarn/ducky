@@ -1,6 +1,6 @@
 import z from "zod";
 
-const ItemSchema = z.object({
+export const ItemSchema = z.object({
   name: z.string(),
   url: z.string(),
 });
@@ -17,16 +17,20 @@ const HtmlSchema = z.object({
   html: z.string(),
 });
 
-const CategorySchema: z.ZodType<any> = z.object({
+const GridSchema = z.object({
+  type: z.literal("grid"),
+  items: z.array(ItemSchema),
+});
+
+const CategorySchema = GridSchema.extend({
   type: z.literal("category"),
   name: z.string(),
   emoji: z.string().optional(),
   open: z.boolean().default(false),
-  items: z.array(z.lazy(() => ConfigItemSchema)),
 });
 
-const ConfigItemSchema: z.ZodType<any> = z.lazy(() =>
-  z.union([SearchSchema, CategorySchema, HtmlSchema, ItemSchema])
+const ConfigItemSchema = z.lazy(() =>
+  z.union([SearchSchema, GridSchema, CategorySchema, HtmlSchema, ItemSchema]),
 );
 
 export const Config = z.object({

@@ -70,6 +70,15 @@ and they can be used in items like this:
   url: https://github.com
 ```
 
+#### `grid`
+
+```yaml
+- type: grid
+  items:
+    - name: bluesky
+      url: https://bsky.app
+```
+
 #### `category`
 
 ```yaml
