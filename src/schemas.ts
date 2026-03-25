@@ -7,9 +7,9 @@ export const ItemSchema = z.object({
 
 const SearchSchema = z.object({
   type: z.literal("search"),
-  placeholder: z.string(),
-  url: z.string(),
-  name: z.string().optional(),
+  placeholder: z.string().default("Search with DuckDuckGo!"),
+  url: z.string().default("https://duckduckgo.com/search"),
+  query: z.string().default("q"),
 });
 
 const HtmlSchema = z.object({

@@ -8,17 +8,15 @@ variables:
 
 items:
   - type: html
-    html: |
-      <h2>search</h2>
+    html: <h2>search</h2>
 
   - type: search
     placeholder: Search using DuckDuckGo!
     url: http://duckduckgo.com/search
-    name: q
+    query: q
 
   - type: html
-    html: |
-      <h2>sites</h2>
+    html: <h2>sites</h2>
 
   - type: category
     name: quick access

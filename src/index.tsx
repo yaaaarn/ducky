@@ -101,22 +101,18 @@ new Elysia()
                 </>
               )}
             </header>
+
             {ITEMS.map((item: any) => {
               const render = renderers[item.type] ?? renderers.default;
               return render?.(item);
             })}
 
             <hr />
-
             <footer>
               Copyright &copy; 2025&ndash;2026 yarncat. No rights reserved.
             </footer>
           </main>
-          {"min" in query ? (
-            <style>{`a { margin: 0.5em 0; display: block; }`}</style>
-          ) : (
-            <style>{styles}</style>
-          )}
+          {!("min" in query) && <style>{styles}</style>}
         </body>
       </html>
     );
