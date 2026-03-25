@@ -99,8 +99,7 @@ and they can be used in items like this:
 
 ```yaml
 - type: html
-  html: |
-    <strong>this is bold</strong>
+  html: <strong>this is bold</strong>
 ```
 
 #### `search`
@@ -109,7 +108,7 @@ and they can be used in items like this:
 - type: search
   placeholder: Search using DuckDuckGo!
   url: https://duckduckgo.com/search
-  name: q
+  query: q
 ```
 
 ## development
