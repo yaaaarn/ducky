@@ -10,7 +10,10 @@ import { renderers } from "./renderers";
 // utils
 //
 
-const resolve = (VARIABLES: z.infer<typeof Config>['variables'], str: string): string => {
+const resolve = (
+  VARIABLES: z.infer<typeof Config>["variables"],
+  str: string,
+): string => {
   if (!str || !VARIABLES) return str;
 
   return str.replace(/\{(\w+)\}/g, (_, varName) => {
@@ -103,8 +106,9 @@ new Elysia()
               return render?.(item);
             })}
 
+            <hr />
+
             <footer>
-              <hr />
               Copyright &copy; 2025&ndash;2026 yarncat. No rights reserved.
             </footer>
           </main>
@@ -119,4 +123,4 @@ new Elysia()
   })
   .listen(3000);
 
-console.log('ducky is active.')
+console.log("ducky is active.");

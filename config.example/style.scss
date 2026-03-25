@@ -99,6 +99,10 @@ small {
   }
 }
 
+ul {
+  margin: 0;
+}
+
 details {
   summary {
     background: #080808;
@@ -144,11 +148,10 @@ details {
 
 hr {
   border: 1px solid #444;
-  margin: 0;
+  margin: 4px 0;
 }
 
 footer {
-  margin: 1em 0;
   font-size: 7pt;
   color: #aaa;
 }
