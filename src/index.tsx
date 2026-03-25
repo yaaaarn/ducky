@@ -92,8 +92,8 @@ new Elysia()
             )}
             <header>
               <h1 id="title">{config.name}</h1>
-              <hr />
               {config.tagline && <p id="tagline">{config.tagline}</p>}
+              <hr />
               {config.description && (
                 <>
                   <pre id="description">{config.description}</pre>
