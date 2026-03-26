@@ -1,5 +1,6 @@
 services:
   ducky:
+    restart: unless-stopped
     pull_policy: build
     build:
       context: .
