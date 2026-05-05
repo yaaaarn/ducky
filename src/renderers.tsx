@@ -51,14 +51,14 @@ const Grid = ({ items }: { items: z.infer<typeof ItemSchema>[] }) => (
 const Search = ({
   placeholder,
   url,
-  name = "q",
+  query = "q",
 }: {
   placeholder: string;
   url: string;
-  name: string;
+  query: string;
 }) => (
   <form action={url} method="GET" class="search">
-    <input name={name} autofocus placeholder={placeholder} />
+    <input name={query} autofocus placeholder={placeholder} />
     <input type="submit" value="Search" />
   </form>
 );
